@@ -108,23 +108,18 @@ void task5() {
     long double x, y, k;
     cin >> k >> x >> y;
     long double result = -1;
-    if (isInBounds(x, y, k)) {
-        if (k < 0) {
+    if (k < 0) {
             x = 0 - x;
             y = 0 - y;
             k = 0 - k;
-        }
+    }
+    if (isInBounds(x, y, k)) {
         long double xDist = k - x;
         long double yDist = k - y;
         long double arr[] = {x, y, xDist, yDist};
         sort(arr, 4);
         cout << arr[0];
     } else {
-        if (k < 0) {
-            x = 0 - x;
-            y = 0 - y;
-            k = 0 - k;
-        }
         if (y > k && x > k) {
             result = sqrt((x - k) * (x - k) + (y - k) * (y - k));
         } else if (x < k && y >= k && x > 0) {
