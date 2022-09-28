@@ -69,7 +69,7 @@ void task4() {
     bool xBiggerThanY = X > Y;
     bool xEqualsY = X == Y;
     long double biggestButLonger = xBiggerThanY ? X : (xEqualsY ? X : Y);
-    std::cout << "No logic variable : " << biggest << "\n";
+    cout << "No logic variable : " << biggest << "\n";
     std::cout << "With logic variable : " << biggestButLonger << "\n";
 }
 
@@ -108,18 +108,23 @@ void task5() {
     long double x, y, k;
     cin >> k >> x >> y;
     long double result = -1;
-    if (k < 0) {
+    if (isInBounds(x, y, k)) {
+        if (k < 0) {
             x = 0 - x;
             y = 0 - y;
             k = 0 - k;
-    }
-    if (isInBounds(x, y, k)) {
+        }
         long double xDist = k - x;
         long double yDist = k - y;
         long double arr[] = {x, y, xDist, yDist};
         sort(arr, 4);
         cout << arr[0];
     } else {
+        if (k < 0) {
+            x = 0 - x;
+            y = 0 - y;
+            k = 0 - k;
+        }
         if (y > k && x > k) {
             result = sqrt((x - k) * (x - k) + (y - k) * (y - k));
         } else if (x < k && y >= k && x > 0) {
@@ -180,6 +185,26 @@ void task7() {
 void task8_1() {
     long double a, b, c;
     cin >> a >> b >> c;
+    if (a == 0 && b == 0 && c == 0) {
+        cout << "Any number";
+        return;
+    }
+    if (a == 0 && b == 0) {
+        cout << "No solutions found";
+        return;
+    }
+    if (a == 0 && c == 0) {
+        cout << 0;
+        return;
+    }
+    if (a == 0) {
+        if (sqrt(c / -b) > 0) {
+            cout << sqrt(-c / b) << " ";
+            cout << -sqrt(-c / b);
+        } else
+            cout << "No solutions found";
+        return;
+    }
     long double disc = b * b - 4 * a * c;
     bool anyRoots = false;
     if (disc > 0) {
@@ -205,9 +230,14 @@ void task8_1() {
         }
     }
     else if (disc == 0) {
+        anyRoots = true;
         long double sq = -b / (2 * a);
-        cout << sqrt(sq) << " ";
-        cout << -sqrt(sq) << " ";
+        if (sq == 0)
+            cout << 0 << " ";
+        else {
+            cout << sqrt(sq) << " ";
+            cout << -sqrt(sq) << " ";
+        }
     }
     if (!anyRoots) {
         cout << "No solutions found";
@@ -217,6 +247,14 @@ void task8_1() {
 void task8_2() {
     long double a, b, c;
     cin >> a >> b >> c;
+    if (a == 0 && b == 0 && c == 0) {
+        cout << "Any number";
+        return;
+    }
+    if ((a == 0 && c == 0) || (a == 0 && b == 0)) {
+        cout << 0;
+        return;
+    }
     long double cff1 = a,
                 cff2 = b,
                 cff3 = c - 2 * a,
@@ -265,7 +303,11 @@ void task8_3() {
     long double p, q;
     cin >> p >> q;
     long double disc = powl(q / 2, 2) + powl(q / 3, 3);
-    cout << cbrt(- q / 2 + sqrt(disc)) + cbrt(- q / 2 - sqrt(disc));
+    if (disc < 0)
+        cout << "No solutions found";
+    else
+        cout << cbrt(- q / 2 + sqrt(disc)) + cbrt(- q / 2 - sqrt(disc));
+
 }
 
 void task9() {
