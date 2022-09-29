@@ -198,7 +198,7 @@ void task8_1() {
         return;
     }
     if (a == 0) {
-        if (sqrt(c / -b) > 0) {
+        if (sqrt(-c / b) > 0) {
             cout << sqrt(-c / b) << " ";
             cout << -sqrt(-c / b);
         } else
@@ -208,24 +208,26 @@ void task8_1() {
     long double disc = b * b - 4 * a * c;
     bool anyRoots = false;
     if (disc > 0) {
-        long double sq1 = (-b - sqrt(disc)) / (2 * a);
-        long double sq2 = (-b + sqrt(disc)) / (2 * a);
-        if (sq2 >= 0) {
-            anyRoots = true;
-            if (sq2 == 0) {
-                cout << 0 << " ";
-            } else {
-                cout << sqrt(sq2) << " ";
-                cout << -sqrt(sq2) << " ";
+        if (a != 0) {
+            long double sq1 = (-b - sqrt(disc)) / (2 * a);
+            long double sq2 = (-b + sqrt(disc)) / (2 * a);
+            if (sq2 >= 0) {
+                anyRoots = true;
+                if (sq2 == 0) {
+                    cout << 0 << " ";
+                } else {
+                    cout << sqrt(sq2) << " ";
+                    cout << -sqrt(sq2) << " ";
+                }
             }
-        }
-        if (sq1 >= 0) {
-            anyRoots = true;
-            if (sq1 == 0) {
-                cout << 0 << " ";
-            } else {
-                cout << sqrt(sq1) << " ";
-                cout << -sqrt(sq1) << " ";
+            if (sq1 >= 0) {
+                anyRoots = true;
+                if (sq1 == 0) {
+                    cout << 0 << " ";
+                } else {
+                    cout << sqrt(sq1) << " ";
+                    cout << -sqrt(sq1) << " ";
+                }
             }
         }
     }
@@ -255,31 +257,47 @@ void task8_2() {
         cout << 0;
         return;
     }
+    if (a == 0) {
+        cout << 0 << " ";
+        long double cff1 = b,
+                    cff2 = c,
+                    cff3 = b,
+                    disc = cff2 * cff2 - 4 * cff1 * cff3;
+        if (disc > 0) {
+            cout << (-cff2 - sqrt(disc)) / (2 * cff1) << " ";
+            cout << (-cff2 + sqrt(disc)) / (2 * cff1) << " ";
+        } else if (disc == 0) {
+            cout << (cff2 / (2 * cff1)) << " ";
+        }
+        return;
+    }
     long double cff1 = a,
                 cff2 = b,
                 cff3 = c - 2 * a,
                 disc = cff2 * cff2 - 4 * cff1 * cff3;
     bool anyRoots = false;
     if (disc > 0) {
-        long double ans1 = (-cff2 - sqrt(disc)) / (2 * cff1),
+        if (cff1 != 0) {
+            long double ans1 = (-cff2 - sqrt(disc)) / (2 * cff1),
                     ans2 = (-cff2 + sqrt(disc)) / (2 * cff1),
                     locDisc1 = powl(ans1, 2.0) - 4.0;
-        if (locDisc1 > 0) {
-            anyRoots = true;
-            cout << (ans1 - sqrt(locDisc1)) / 2 << " ";
-            cout << (ans1 + sqrt(locDisc1)) / 2 << " ";
-        } else if (locDisc1 == 0) {
-            anyRoots = true;
-            cout << ans1 / 2 << " ";
-        }
-        long double locDisc2 = ans2 * ans2 - 4;
-        if (locDisc2 > 0) {
-            anyRoots = true;
-            cout << (ans2 - sqrt(locDisc2)) / 2 << " ";
-            cout << (ans2 + sqrt(locDisc2)) / 2 << " ";
-        } else if (locDisc2 == 0) {
-            anyRoots = true;
-            cout << ans2 / 2 << " ";
+            if (locDisc1 > 0) {
+                anyRoots = true;
+                cout << (ans1 - sqrt(locDisc1)) / 2 << " ";
+                cout << (ans1 + sqrt(locDisc1)) / 2 << " ";
+            } else if (locDisc1 == 0) {
+                anyRoots = true;
+                cout << ans1 / 2 << " ";
+            }
+            long double locDisc2 = ans2 * ans2 - 4;
+            if (locDisc2 > 0) {
+                anyRoots = true;
+                cout << (ans2 - sqrt(locDisc2)) / 2 << " ";
+                cout << (ans2 + sqrt(locDisc2)) / 2 << " ";
+            } else if (locDisc2 == 0) {
+                anyRoots = true;
+                cout << ans2 / 2 << " ";
+            }
         }
     }
     else if (disc == 0) {
@@ -304,7 +322,7 @@ void task8_3() {
     cin >> p >> q;
     long double disc = powl(q / 2, 2) + powl(q / 3, 3);
     if (disc < 0)
-        cout << "No solutions found";
+        cout << "No real solutions found";
     else
         cout << cbrt(- q / 2 + sqrt(disc)) + cbrt(- q / 2 - sqrt(disc));
 
