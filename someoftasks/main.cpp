@@ -148,6 +148,6 @@ void task13() {
 }
 
 int main() {
-	task12();
+	task13();
 	return 0;
 }
